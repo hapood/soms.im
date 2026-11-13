@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-fed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="node-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="260" rx="12" fill="url(#bg-fed)" stroke="#27272a" stroke-width="1.5"/>
+  
+  <!-- Connecting line -->
+  <path d="M 140 130 C 200 80, 280 80, 340 130" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-dasharray="6 6"/>
+  <path d="M 140 130 C 200 180, 280 180, 340 130" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-dasharray="6 6"/>
+
+  <!-- Center badge -->
+  <rect x="180" y="112" width="120" height="36" rx="18" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="240" y="135" fill="#c7d2fe" font-size="12" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="600" text-anchor="middle">HTTPS / S2S Sync</text>
+
+  <!-- Node A -->
+  <circle cx="120" cy="130" r="42" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+  <circle cx="120" cy="130" r="34" fill="#27272a"/>
+  <text x="120" y="126" fill="#f4f4f5" font-size="14" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" text-anchor="middle">Server A</text>
+  <text x="120" y="144" fill="#a1a1aa" font-size="10.5" font-family="monospace" text-anchor="middle">alice@alpha.im</text>
+
+  <!-- Node B -->
+  <circle cx="360" cy="130" r="42" fill="#18181b" stroke="#3f3f46" stroke-width="2"/>
+  <circle cx="360" cy="130" r="34" fill="#27272a"/>
+  <text x="360" y="126" fill="#f4f4f5" font-size="14" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" text-anchor="middle">Server B</text>
+  <text x="360" y="144" fill="#a1a1aa" font-size="10.5" font-family="monospace" text-anchor="middle">bob@beta.chat</text>
+
+  <!-- Top label -->
+  <text x="240" y="38" fill="#71717a" font-size="11.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" text-anchor="middle" font-weight="500">Cross-domain friendship &amp; federated group relay</text>
+</svg>

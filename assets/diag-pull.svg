@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-pull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="260" rx="12" fill="url(#bg-pull)" stroke="#27272a" stroke-width="1.5"/>
+
+  <!-- Timeline / Stage -->
+  <!-- Step 1: Offline box -->
+  <g transform="translate(40, 50)">
+    <rect width="110" height="110" rx="8" fill="#18181b" stroke="#3f3f46"/>
+    <rect x="0" y="0" width="110" height="24" rx="8" fill="#27272a"/>
+    <text x="55" y="16" fill="#ef4444" font-size="10.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" text-anchor="middle">OFFLINE</text>
+    <text x="55" y="58" fill="#a1a1aa" font-size="11" font-family="-apple-system, BlinkMacSystemFont, sans-serif" text-anchor="middle">Server</text>
+    <text x="55" y="74" fill="#a1a1aa" font-size="11" font-family="-apple-system, BlinkMacSystemFont, sans-serif" text-anchor="middle">Maintenance</text>
+    <text x="55" y="94" fill="#71717a" font-size="9.5" font-family="monospace" text-anchor="middle">Cursor: 1042</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M 160 105 L 188 105" stroke="#6366f1" stroke-width="2" marker-end="url(#m-arr)"/>
+  <text x="175" y="95" fill="#818cf8" font-size="10" font-family="-apple-system, BlinkMacSystemFont, sans-serif" text-anchor="middle">Reboot</text>
+
+  <!-- Step 2: Online & Catch-up -->
+  <g transform="translate(200, 40)">
+    <rect width="240" height="130" rx="8" fill="#18181b" stroke="#6366f1" stroke-width="1.5"/>
+    <rect x="0" y="0" width="240" height="26" rx="8" fill="#1e1b4b"/>
+    <text x="120" y="17" fill="#818cf8" font-size="11" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" text-anchor="middle">ONLINE: PULL &amp; SYNC</text>
+
+    <text x="16" y="52" fill="#22c55e" font-size="11" font-family="monospace">1. GET /state-feed?since=1042</text>
+    <text x="16" y="74" fill="#a1a1aa" font-size="11" font-family="monospace">2. Fetch missing messages (1043..1056)</text>
+    <text x="16" y="96" fill="#a1a1aa" font-size="11" font-family="monospace">3. Commit local cursor: 1056</text>
+    <text x="16" y="118" fill="#22c55e" font-size="10.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="600">✓ All missed messages restored cleanly</text>
+  </g>
+
+  <!-- Bottom notice -->
+  <text x="240" y="215" fill="#71717a" font-size="11" font-family="-apple-system, BlinkMacSystemFont, sans-serif" text-anchor="middle">
+    Designed for home servers and residential IPs — no missed events, no dropped state.
+  </text>
+</svg>
