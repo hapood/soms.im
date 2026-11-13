@@ -547,14 +547,14 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          Announcing SOMS v0.1.0-alpha Technical Preview
+          Technical Preview — SOMS v0.1.0-alpha / SOMFP v1.0.0-draft.2
         </div>
         <h1>
-          <span class="gradient-text">The Self-Hosted &amp; Federated Chat Platform</span><br />
+          <span class="gradient-text">Self-Hosted &amp; Federated Chat</span><br />
           <span class="highlight-text">for Web and Native Devices</span>
         </h1>
         <p>
-          <strong>SOMS</strong> (Simple Open Messaging Service) connects independently operated servers via the pull-based <strong>SOMFP</strong> federation protocol. True data sovereignty, zero message broker dependencies, and native desktop/mobile apps.
+          <strong>SOMS</strong> (Simple Open Messaging Service) connects independently operated servers via the pull-based <strong>SOMFP</strong> federation protocol. Independent identity domains, zero message broker dependencies, and a shared Rust native runtime.
         </p>
         <div class="hero-actions">
           <a href="https://hapood.github.io/simple-open-messaging-service/" class="btn btn-primary" target="_blank" rel="noopener">
@@ -576,8 +576,8 @@
       <!-- Features Section -->
       <section id="features" class="features container">
         <div class="section-header">
-          <h2>Engineered for Simplicity &amp; Autonomy</h2>
-          <p>Everything you need for private, reliable, and verifiable team or personal communication.</p>
+          <h2>Architecture &amp; Design Trade-offs</h2>
+          <p>Engineered for home servers, NAS devices, and verifiable protocol invariants.</p>
         </div>
 
         <div class="grid-3">
@@ -591,7 +591,7 @@
             </div>
             <h3>Pull-Based Federation (SOMFP)</h3>
             <p>
-              Unlike traditional federated networks where node downtime causes lost events, SOMFP treats push notifications as advisory. Servers pull compacted state feeds and catch up deterministically after network partitions.
+              Intermittent nodes and residential IP shifts do not cause event loss. Push notifications are advisory; servers pull compacted state feeds and catch up deterministically using monotonically advancing cursors.
             </p>
           </div>
 
@@ -604,9 +604,9 @@
                 <line x1="6" y1="18" x2="6.01" y2="18"></line>
               </svg>
             </div>
-            <h3>No Heavy Middleware</h3>
+            <h3>PostgreSQL-Backed Durable Queues</h3>
             <p>
-              No Redis, Kafka, or RabbitMQ clusters required. The entire backend runs on NestJS and PostgreSQL using ACID-backed durable transactional queues, keeping deployment memory footprints under 150MB.
+              No external message brokers like Redis, RabbitMQ, or Kafka. The entire backend runs on Fastify and PostgreSQL, using MVCC row-level locks for reliable, crash-safe task scheduling and fan-out.
             </p>
           </div>
 
@@ -617,9 +617,9 @@
                 <line x1="12" y1="18" x2="12.01" y2="18"></line>
               </svg>
             </div>
-            <h3>Cross-Platform with Rust Runtime</h3>
+            <h3>Shared Rust Core for Native Apps</h3>
             <p>
-              Native clients for Android, Linux, Windows, and macOS built with Tauri. Platform UI remains a thin adapter while shared Rust code owns connection epochs, cryptographic validation, and synchronization.
+              Native Android, Linux, Windows, and macOS clients use Tauri. Platform UI code acts as a thin adapter, while shared Rust code owns connection epochs, SQLite persistence, and cryptographic verification.
             </p>
           </div>
 
@@ -629,9 +629,9 @@
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
             </div>
-            <h3>1:1 WebRTC Voice &amp; Video</h3>
+            <h3>1:1 WebRTC Audio &amp; Video</h3>
             <p>
-              Direct peer-to-peer audio and video calls with real-time signaling passed transparently across federated server boundaries.
+              Peer-to-peer media delivery with federated signaling relay. Supports custom STUN/TURN configurations without locking instances into proprietary relay networks.
             </p>
           </div>
 
@@ -641,9 +641,9 @@
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
             </div>
-            <h3>Durable Deletions (Tombstones)</h3>
+            <h3>Sequenced Tombstones</h3>
             <p>
-              Message retraction and account removal use explicit tombstone events with monotonically increasing sequence cursors, ensuring deletions propagate completely across all peering nodes.
+              Deletions and retractions are durable, sequenced protocol facts. Tombstone feeds propagate across nodes, preventing deleted content from resurfacing when peers reconnect after prolonged partitions.
             </p>
           </div>
 
@@ -653,9 +653,9 @@
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
               </svg>
             </div>
-            <h3>Pixel-Accurate Virtual Scrolling</h3>
+            <h3>Integer-Pixel Virtual Scroller</h3>
             <p>
-              The web client features a specialized integer-pixel virtual chat-box engine that prevents layout shifts, scroll jumps, and measurement drift across millions of messages.
+              The web chat-box enforces integer-pixel line boxes and transform-invariant measurements, preventing height drift, measurement jitter, and scroll jumps across deep message windows.
             </p>
           </div>
         </div>
