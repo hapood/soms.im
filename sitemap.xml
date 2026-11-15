@@ -2,8 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://soms.im/</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://soms.im/how-it-works/messaging/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://soms.im/how-it-works/groups/</loc><lastmod>2026-11-15</lastmod><priority>0.8</priority></url>
+  <url><loc>https://soms.im/how-it-works/sync/</loc><lastmod>2026-11-15</lastmod><priority>0.8</priority></url>
+  <url><loc>https://soms.im/how-it-works/security/</loc><lastmod>2026-11-15</lastmod><priority>0.8</priority></url>
 </urlset>

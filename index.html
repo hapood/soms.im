@@ -1,822 +1,174 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary Meta Tags -->
-    <title>SOMS.im — Simple Open Messaging Service | Email-Like Federated Chat</title>
-    <meta name="title" content="SOMS.im — Simple Open Messaging Service | Email-Like Federated Chat" />
-    <meta
-      name="description"
-      content="SOMS.im is a self-hosted, federated chat platform for web and native devices. Private domain-based chat, cross-server groups, low ~200MB server memory footprint, full message history, HTTPS server-to-server security, and lightweight clients with 1:1 calling and Android push."
-    />
-    <meta
-      name="keywords"
-      content="soms, soms.im, simple-open-messaging-service, federated chat, self-hosted chat, private messaging, domain chat, cross server group chat"
-    />
-    <meta name="author" content="hapood" />
-    <link rel="canonical" href="https://soms.im/" />
-
-    <!-- Open Graph / Facebook / Discord -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://soms.im/" />
-    <meta property="og:title" content="SOMS.im — Simple Open Messaging Service" />
-    <meta
-      property="og:description"
-      content="Independent private chat servers with native federation. Cross-domain friends and groups, low ~200MB server memory usage, reliable pull sync, standard HTTPS server encryption, and lightweight native apps."
-    />
-    <meta property="og:image" content="https://soms.im/assets/social-preview.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://soms.im/" />
-    <meta name="twitter:title" content="SOMS.im — Simple Open Messaging Service" />
-    <meta
-      name="twitter:description"
-      content="Independent private chat servers with native federation. Low ~200MB server memory usage, full history storage, HTTPS server-to-server security, and lightweight cross-platform apps."
-    />
-    <meta name="twitter:image" content="https://soms.im/assets/social-preview.png" />
-
-    <!-- Favicon & Touch Icons -->
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-    <link rel="shortcut icon" href="assets/favicon.ico" />
-    <meta name="theme-color" content="#18181b" />
-
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "SOMS.im",
-        "alternateName": [
-          "SOMS",
-          "Simple Open Messaging Service",
-          "simple-open-messaging-service"
-        ],
-        "url": "https://soms.im/",
-        "operatingSystem": "Web, Android, Linux, Windows, macOS",
-        "applicationCategory": "CommunicationApplication",
-        "license": "https://opensource.org/licenses/MIT",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "hapood",
-          "url": "https://github.com/hapood"
-        },
-        "description": "SOMS.im is an open-source, self-hosted, and federated chat platform for web and native devices. Private servers with native cross-domain federation."
-      }
-    </script>
-
-    <style>
-      :root {
-        --bg-main: #09090b;
-        --bg-card: rgba(24, 24, 27, 0.7);
-        --bg-card-hover: rgba(39, 39, 42, 0.8);
-        --border-color: rgba(255, 255, 255, 0.1);
-        --text-main: #f4f4f5;
-        --text-muted: #a1a1aa;
-        --text-sub: #71717a;
-        --accent: #6366f1;
-        --accent-hover: #4f46e5;
-        --accent-light: #818cf8;
-        --code-bg: #141417;
-        --glow-primary: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 65%);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        background-color: var(--bg-main);
-        color: var(--text-main);
-        line-height: 1.6;
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .ambient-glow {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
-        height: 700px;
-        background: var(--glow-primary);
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .container {
-        max-width: 1140px;
-        margin: 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Navbar */
-      .navbar {
-        height: 72px;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid var(--border-color);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: rgba(9, 9, 11, 0.85);
-      }
-
-      .navbar-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-weight: 700;
-        font-size: 20px;
-        letter-spacing: -0.5px;
-      }
-
-      .nav-brand img {
-        width: 28px;
-        height: 28px;
-      }
-
-      .nav-brand .badge-im {
-        color: var(--accent-light);
-        font-weight: 600;
-        font-size: 15px;
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 22px;
-      }
-
-      .nav-link {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--text-muted);
-        transition: color 0.15s ease;
-      }
-
-      .nav-link:hover {
-        color: var(--text-main);
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 9px 18px;
-        border-radius: 9999px;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        cursor: pointer;
-        border: 1px solid transparent;
-      }
-
-      .btn-primary {
-        background: var(--text-main);
-        color: #09090b;
-      }
-
-      .btn-primary:hover {
-        background: #ffffff;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        transform: translateY(-1px);
-      }
-
-      .btn-secondary {
-        background: var(--bg-card);
-        color: var(--text-main);
-        border: 1px solid var(--border-color);
-        backdrop-filter: blur(8px);
-      }
-
-      .btn-secondary:hover {
-        background: var(--bg-card-hover);
-        border-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
-      }
-
-      /* Hero Section */
-      .hero {
-        padding: 88px 0 56px;
-        text-align: center;
-      }
-
-      /* Technical Preview Callout (Yellow Warning) */
-      .preview-warning {
-        display: inline-flex;
-        align-items: center;
-        max-width: 100%;
-        margin: 0 auto 24px;
-        padding: 5px 14px;
-        border-radius: 9999px;
-        background: rgba(234, 179, 8, 0.08);
-        border: 1px solid rgba(234, 179, 8, 0.28);
-        gap: 8px;
-        text-align: left;
-        backdrop-filter: blur(8px);
-      }
-
-      .preview-warning-icon {
-        color: #eab308;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-      }
-
-      .preview-warning-content {
-        flex: 1;
-        font-size: 12px;
-        line-height: 1.4;
-        color: #fef08a;
-        white-space: nowrap;
-      }
-
-      .preview-warning-content strong {
-        color: #fde047;
-        font-weight: 600;
-      }
-
-      .preview-warning-content p {
-        margin: 0;
-        padding: 0;
-        max-width: none;
-        color: #fef9c3;
-        font-size: 12px;
-        line-height: 1.4;
-        white-space: nowrap;
-      }
-
-      .preview-warning-content code {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 11px;
-        background: rgba(234, 179, 8, 0.15);
-        padding: 1px 4px;
-        border-radius: 4px;
-        color: #fef08a;
-      }
-
-      @media (max-width: 640px) {
-        .preview-warning {
-          border-radius: 8px;
-          padding: 8px 12px;
-        }
-        .preview-warning-content,
-        .preview-warning-content p {
-          white-space: normal;
-        }
-      }
-
-      .hero h1 {
-        font-size: clamp(34px, 5.5vw, 64px);
-        font-weight: 800;
-        line-height: 1.15;
-        letter-spacing: -1.2px;
-        max-width: 960px;
-        margin: 0 auto 20px;
-      }
-
-      .hero h1 .gradient-text {
-        background: linear-gradient(135deg, #ffffff 40%, #9ca3af 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .hero h1 .highlight-text {
-        background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .hero > p,
-      .hero-desc {
-        font-size: clamp(16px, 2.2vw, 19px);
-        color: var(--text-muted);
-        max-width: 720px;
-        margin: 0 auto 20px;
-        line-height: 1.55;
-      }
-
-      .hero-actions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        flex-wrap: wrap;
-        margin-bottom: 52px;
-      }
-
-      .hero-preview {
-        position: relative;
-        max-width: 960px;
-        margin: 0 auto;
-        border-radius: 16px;
-        padding: 8px;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(99, 102, 241, 0.08);
-      }
-
-      .hero-preview img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-        display: block;
-      }
-
-      /* Core Values Grid */
-      .features {
-        padding: 88px 0 64px;
-        scroll-margin-top: 80px;
-      }
-
-      .section-header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .section-badge {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: var(--accent-light);
-        font-weight: 600;
-        margin-bottom: 10px;
-        display: block;
-      }
-
-      .section-header h2 {
-        font-size: 36px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        margin-bottom: 16px;
-      }
-
-      .section-header p {
-        color: var(--text-muted);
-        font-size: 16.5px;
-        max-width: 720px;
-        margin: 0 auto;
-        line-height: 1.6;
-      }
-
-      .grid-values {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-
-      .card-value {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 18px;
-        padding: 30px;
-        backdrop-filter: blur(12px);
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card-value::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .card-value:hover {
-        background: var(--bg-card-hover);
-        border-color: rgba(99, 102, 241, 0.35);
-        transform: translateY(-3px);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
-      }
-
-      .card-value:hover::before {
-        opacity: 1;
-      }
-
-      .card-header-row {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-
-      .card-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        background: rgba(99, 102, 241, 0.12);
-        border: 1px solid rgba(99, 102, 241, 0.24);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--accent-light);
-        flex-shrink: 0;
-      }
-
-      .card-icon svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      .card-header-titles {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .card-tag {
-        display: inline-block;
-        font-size: 11.5px;
-        font-weight: 600;
-        color: var(--accent-light);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-      }
-
-      .card-value h3 {
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 1.35;
-        color: #ffffff;
-        letter-spacing: -0.3px;
-        margin: 0;
-      }
-
-      .card-value p {
-        color: var(--text-muted);
-        font-size: 14.5px;
-        line-height: 1.65;
-        margin: 0;
-      }
-
-      /* Responsive Fine-Tuning */
-      @media (max-width: 768px) {
-        .navbar {
-          height: 64px;
-        }
-
-        .nav-brand {
-          font-size: 18px;
-        }
-
-        .hero {
-          padding: 64px 0 44px;
-        }
-
-        .hero h1 {
-          font-size: clamp(28px, 7vw, 44px);
-        }
-
-        .hero-preview {
-          padding: 5px;
-          border-radius: 12px;
-        }
-
-        .hero-preview img {
-          border-radius: 8px;
-        }
-
-        .features {
-          padding: 64px 0 48px;
-        }
-
-        .section-header {
-          margin-bottom: 36px;
-        }
-
-        .section-header h2 {
-          font-size: 28px;
-        }
-
-        .card-value {
-          padding: 22px;
-          border-radius: 14px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .nav-links .nav-link {
-          display: none;
-        }
-
-        .footer-inner {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 16px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .hero {
-          padding: 52px 0 36px;
-        }
-
-        .hero-actions {
-          flex-direction: column;
-          width: 100%;
-        }
-
-        .hero-actions .btn {
-          width: 100%;
-        }
-      }
-
-      /* Footer */
-      footer {
-        border-top: 1px solid var(--border-color);
-        padding: 44px 0;
-        color: var(--text-sub);
-        font-size: 14px;
-      }
-
-      .footer-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 16px;
-      }
-
-      .footer-links {
-        display: flex;
-        gap: 20px;
-      }
-
-      .footer-links a:hover {
-        color: var(--text-main);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="ambient-glow"></div>
-
-    <!-- Navigation -->
-    <header class="navbar">
-      <div class="container navbar-container">
-        <a href="/" class="nav-brand">
-          <img src="assets/logo.svg" alt="SOMS.im Logo" width="28" height="28" />
-          <span>SOMS<span class="badge-im">.im</span></span>
-        </a>
-        <nav class="nav-links">
-          <a href="#why" class="nav-link">Why SOMS</a>
-          <a href="https://hapood.github.io/simple-open-messaging-service/" class="nav-link" target="_blank" rel="noopener">Playground</a>
-          <a href="https://github.com/hapood/simple-open-messaging-service/blob/main/docs/deployment/deployment.md" class="nav-link" target="_blank" rel="noopener">Docs</a>
-          <a href="https://github.com/hapood/simple-open-messaging-service" class="btn btn-secondary" target="_blank" rel="noopener">
-            <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-            GitHub
-          </a>
-        </nav>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SOMS — Self-hosted Instant Messaging, Federated by Nature</title><meta name="description" content="Self-hosted instant messaging with email-like addresses and native federation. Explore lightweight servers, web and native clients, and full message history."><link rel="canonical" href="https://soms.im/"><link rel="icon" type="image/svg+xml" href="/assets/logo.svg"><meta name="theme-color" content="#0a0d14"><meta property="og:title" content="SOMS — Self-hosted Instant Messaging, Federated by Nature"><meta property="og:description" content="Self-hosted instant messaging with email-like addresses and native federation. Explore lightweight servers, web and native clients, and full message history."><meta property="og:image" content="https://soms.im/assets/social-preview.png"><meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/site.css?v=seo-cleanup-1"><script src="/assets/site.js?v=seo-cleanup-1" defer></script><meta property="og:type" content="website"><meta property="og:url" content="https://soms.im/"><meta property="og:site_name" content="SOMS"><meta property="og:image:alt" content="SOMS messaging client"><meta name="twitter:title" content="SOMS — Self-hosted Instant Messaging, Federated by Nature"><meta name="twitter:description" content="Self-hosted instant messaging with email-like addresses and native federation. Explore lightweight servers, web and native clients, and full message history."><meta name="twitter:image" content="https://soms.im/assets/social-preview.png"></head><body data-page="home"><nav class="fixed-nav" aria-label="Main navigation"><a href="/" class="brand-group" aria-label="SOMS home"><img src="/assets/logo.svg" width="38" height="38" alt=""><span>SOMS<span class="brand-domain">.im</span></span></a></nav><main class="page-wrapper"><header class="hero-section hero-minimal">
+<p class="hero-brand-name">Simple Open Messaging Service</p>
+<h1 class="hero-title">Instant messaging.<br><span class="gradient-text">Federated by nature.</span></h1>
+<p class="hero-description">Email-like addresses. Independent servers. Chat across domains with SOMFP, our open messaging protocol.</p>
+<div class="hero-actions"><a class="github-primary" href="https://github.com/hapood/simple-open-messaging-service" target="_blank" rel="noopener noreferrer"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.28-5.15 5.56.4.35.76 1.03.76 2.08v3.09c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg><span>SOMS on GitHub</span></a></div>
+</header><section id="architecture" class="carousel-section" aria-label="Animated messaging demonstration"><div class="carousel-container" id="carouselContainer"><div class="slides-wrapper" id="slidesWrapper"><div class="slide" id="slide1">
+              <div class="home-card-header">
+                <h2>Federated messaging</h2>
+                <a class="home-card-button" href="/how-it-works/messaging/">How SOMS works <span aria-hidden="true">→</span></a>
+              </div>
+
+              <p class="home-card-description federation-description">Chat across independent servers with SOMFP, the open protocol behind direct messages and federated groups.</p>
+
+              <!-- Stage 1 SVG -->
+              <div class="stage-svg-wrap" id="stage1Wrap">
+                <svg id="svgAct1" viewBox="0 15 1000 430" preserveAspectRatio="xMidYMid meet">
+                  <defs>
+                    <linearGradient id="gradIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#818cf8"/>
+                      <stop offset="100%" stop-color="#4f46e5"/>
+                    </linearGradient>
+                    <linearGradient id="gradCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8"/>
+                      <stop offset="100%" stop-color="#0284c7"/>
+                    </linearGradient>
+                    <linearGradient id="gradEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#34d399"/>
+                      <stop offset="100%" stop-color="#059669"/>
+                    </linearGradient>
+
+                    <!-- Solid Conduits Gradients (No dashes) -->
+                    <linearGradient id="conduitIntGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#6366f1"/>
+                      <stop offset="100%" stop-color="#818cf8"/>
+                    </linearGradient>
+                    <linearGradient id="conduitS2SGlow" x1="0%" y1="50%" x2="100%" y2="50%">
+                      <stop offset="0%" stop-color="#6366f1"/>
+                      <stop offset="50%" stop-color="#38bdf8"/>
+                      <stop offset="100%" stop-color="#10b981"/>
+                    </linearGradient>
+
+                    <!-- Clip Paths for Avatars -->
+                    <clipPath id="clipAlice1"><circle cx="120" cy="135" r="28" /></clipPath>
+                    <clipPath id="clipBob1"><circle cx="120" cy="335" r="28" /></clipPath>
+                    <clipPath id="clipCharlie1"><circle cx="880" cy="235" r="28" /></clipPath>
+                  </defs>
+
+                  <!-- Realm 1: soms.im -->
+                  <g class="realm-box">
+                    <rect x="40" y="30" width="440" height="400" rx="22" fill="#121727" fill-opacity="0.75" stroke="#6366f1" stroke-width="1.8" stroke-opacity="0.5"/>
+                    <rect x="56" y="46" width="195" height="28" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" stroke-opacity="0.4"/>
+                    <circle cx="70" cy="60" r="4.5" fill="#818cf8"/>
+                    <text x="82" y="64" fill="#c7d2fe" font-size="11.5" font-family="'JetBrains Mono', monospace" font-weight="600">soms.im Realm</text>
+                  </g>
+
+                  <!-- Realm 2: soms.chat -->
+                  <g class="realm-box">
+                    <rect x="520" y="30" width="440" height="400" rx="22" fill="#0c1d22" fill-opacity="0.75" stroke="#10b981" stroke-width="1.8" stroke-opacity="0.5"/>
+                    <rect x="536" y="46" width="205" height="28" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="1" stroke-opacity="0.4"/>
+                    <circle cx="550" cy="60" r="4.5" fill="#34d399"/>
+                    <text x="562" y="64" fill="#a7f3d0" font-size="11.5" font-family="'JetBrains Mono', monospace" font-weight="600">soms.chat Realm</text>
+                  </g>
+
+                  <!-- SOLID CONDUITS (Full Solid Lines) -->
+                  <!-- Internal Conduits in soms.im -->
+                  <path id="pathAliceToHub1" d="M 120 135 C 200 135, 240 235, 340 235" class="solid-conduit-glow" stroke="url(#conduitIntGlow)"/>
+                  <path d="M 120 135 C 200 135, 240 235, 340 235" class="solid-conduit-core" stroke="#a5b4fc"/>
+
+                  <path id="pathBobToHub1" d="M 120 335 C 200 335, 240 235, 340 235" class="solid-conduit-glow" stroke="url(#conduitIntGlow)"/>
+                  <path d="M 120 335 C 200 335, 240 235, 340 235" class="solid-conduit-core" stroke="#a5b4fc"/>
+
+                  <!-- S2S Bridge Conduit (Solid Trunk) -->
+                  <path id="pathS2SBridge1" d="M 340 235 L 660 235" class="solid-conduit-glow" stroke="url(#conduitS2SGlow)" stroke-width="8.5"/>
+                  <path d="M 340 235 L 660 235" class="solid-conduit-core" stroke="#38bdf8" stroke-width="3"/>
+
+                  <!-- Hub to Charlie Conduit in soms.chat -->
+                  <path id="pathHubToCharlie1" d="M 660 235 L 880 235" class="solid-conduit-glow" stroke="url(#gradEmerald)"/>
+                  <path d="M 660 235 L 880 235" class="solid-conduit-core" stroke="#6ee7b7"/>
+
+                  <!-- SOMFP S2S Badge (Simplified: Clean capsule, no lightning icon) -->
+                  <g transform="translate(500, 235)">
+                    <rect x="-65" y="-15" width="130" height="30" rx="15" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" filter="drop-shadow(0 0 10px rgba(56, 189, 248, 0.45))"/>
+                    <text x="0" y="5" text-anchor="middle" fill="#e0f2fe" font-size="12" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="0.08em">SOMFP S2S</text>
+                  </g>
+
+                  <!-- soms.im Server Node -->
+                  <g transform="translate(340, 235)">
+                    <circle cx="0" cy="0" r="32" fill="#1e1b4b" stroke="#818cf8" stroke-width="2.5" filter="drop-shadow(0 0 14px rgba(99, 102, 241, 0.6))"/>
+                    <rect x="-14" y="-14" width="28" height="28" rx="6" fill="#312e81"/>
+                    <path d="M -8 -6 L 8 -6 M -8 0 L 8 0 M -8 6 L 8 6" stroke="#c7d2fe" stroke-width="2.2" stroke-linecap="round"/>
+                    <text x="0" y="48" text-anchor="middle" fill="#c7d2fe" font-size="11.5" font-family="'JetBrains Mono', monospace" font-weight="600">soms.im</text>
+                    <text x="0" y="62" text-anchor="middle" fill="#94a3b8" font-size="9.5">Local SQLite</text>
+                  </g>
+
+                  <!-- soms.chat Server Node -->
+                  <g transform="translate(660, 235)">
+                    <circle cx="0" cy="0" r="32" fill="#064e3b" stroke="#34d399" stroke-width="2.5" filter="drop-shadow(0 0 14px rgba(16, 185, 129, 0.6))"/>
+                    <rect x="-14" y="-14" width="28" height="28" rx="6" fill="#047857"/>
+                    <path d="M -8 -6 L 8 -6 M -8 0 L 8 0 M -8 6 L 8 6" stroke="#a7f3d0" stroke-width="2.2" stroke-linecap="round"/>
+                    <text x="0" y="48" text-anchor="middle" fill="#a7f3d0" font-size="11.5" font-family="'JetBrains Mono', monospace" font-weight="600">soms.chat</text>
+                    <text x="0" y="62" text-anchor="middle" fill="#94a3b8" font-size="9.5">Remote Realm</text>
+                  </g>
+
+                  <!-- User Avatars with Dual Ping Rings & Bounce Wrapper -->
+                  <!-- Alice -->
+                  <g class="user-node" id="nodeAlice1">
+                    <circle id="pingAlice1_1" class="ping-circle-1" cx="120" cy="135" r="28" stroke="#818cf8"/>
+                    <circle id="pingAlice1_2" class="ping-circle-2" cx="120" cy="135" r="28" stroke="#38bdf8"/>
+                    <circle cx="120" cy="135" r="31" fill="none" stroke="#6366f1" stroke-width="2"/>
+                    <image href="/assets/avatars/alice.webp" x="92" y="107" width="56" height="56" clip-path="url(#clipAlice1)"/>
+                    <text x="120" y="180" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">Alice</text>
+                    <text x="120" y="195" text-anchor="middle" fill="#818cf8" font-size="10" font-family="'JetBrains Mono', monospace">alice@soms.im</text>
+                  </g>
+
+                  <!-- Bob -->
+                  <g class="user-node" id="nodeBob1">
+                    <circle id="pingBob1_1" class="ping-circle-1" cx="120" cy="335" r="28" stroke="#818cf8"/>
+                    <circle id="pingBob1_2" class="ping-circle-2" cx="120" cy="335" r="28" stroke="#38bdf8"/>
+                    <circle cx="120" cy="335" r="31" fill="none" stroke="#6366f1" stroke-width="2"/>
+                    <image href="/assets/avatars/noah.webp" x="92" y="307" width="56" height="56" clip-path="url(#clipBob1)"/>
+                    <text x="120" y="380" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">Bob</text>
+                    <text x="120" y="395" text-anchor="middle" fill="#818cf8" font-size="10" font-family="'JetBrains Mono', monospace">bob@soms.im</text>
+                  </g>
+
+                  <!-- Charlie -->
+                  <g class="user-node" id="nodeCharlie1">
+                    <circle id="pingCharlie1_1" class="ping-circle-1" cx="880" cy="235" r="28" stroke="#34d399"/>
+                    <circle id="pingCharlie1_2" class="ping-circle-2" cx="880" cy="235" r="28" stroke="#38bdf8"/>
+                    <circle cx="880" cy="235" r="31" fill="none" stroke="#10b981" stroke-width="2"/>
+                    <image href="/assets/avatars/liam.webp" x="852" y="207" width="56" height="56" clip-path="url(#clipCharlie1)"/>
+                    <text x="880" y="280" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">Charlie</text>
+                    <text x="880" y="295" text-anchor="middle" fill="#34d399" font-size="10" font-family="'JetBrains Mono', monospace">charlie@soms.chat</text>
+                  </g>
+
+                  <!-- Native SVG Dynamic Particle Trail Pool (Slide 1) -->
+                  <g id="particleContainer1"></g>
+
+                  <!-- Native SVG Message Sender Toast Badge (100% Vector Responsive) -->
+                  <g id="svgToast1" class="svg-sender-badge" transform="translate(120, 82)" opacity="0">
+                    <rect id="toast1Bg" x="-54" y="-14" width="108" height="28" rx="14" fill="#0f172a" fill-opacity="0.95" stroke="#38bdf8" stroke-width="1.3" filter="drop-shadow(0 0 10px rgba(56, 189, 248, 0.45))"/>
+                    <!-- Small Envelope Icon -->
+                    <g id="toast1Icon" transform="translate(-42, -7)">
+                      <rect x="0" y="0" width="16" height="13" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+                      <path d="M 2 2.5 L 8 7.5 L 14 2.5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <!-- Text Target -->
+                    <text id="toast1Text" x="-18" y="4.5" fill="#e0f2fe" font-size="11.5" font-family="'JetBrains Mono', monospace" font-weight="600">to bob</text>
+                  </g>
+
+                  <!-- FLYING ENVELOPE (Pure Vector Core) -->
+                  <g id="flyingComet1" class="flying-envelope-node" opacity="0">
+                    <rect x="-8" y="-7" width="16" height="13" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+                    <path d="M -6 -4.5 L 0 0.5 L 6 -4.5" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round"/>
+                  </g>
+                </svg>
+              </div>
+            </div></div></div></section>
+<section id="features" class="product-summary" aria-label="Clients and lightweight hosting">
+  <article class="product-block">
+    <div class="home-card-header"><h2>Web &amp; native clients</h2><a class="home-card-button" href="https://hapood.github.io/simple-open-messaging-service/" target="_blank" rel="noopener noreferrer">Playground <span aria-hidden="true">→</span></a></div><p class="home-card-description">Rich chats, group conversations, and voice &amp; video calls. Android push keeps you connected on the go.</p>
+    <img src="/assets/client-showcase.png" alt="Official SOMS project showcase of desktop and mobile chat clients" loading="lazy" width="2200" height="1570" class="official-client-image">
+  </article>
+  <article class="product-block">
+    <div class="home-card-header"><h2>Lightweight server</h2><a class="home-card-button" href="https://hapood.github.io/simple-open-messaging-service/#/deploy" target="_blank" rel="noopener noreferrer">Deploy server <span aria-hidden="true">→</span></a></div><p class="home-card-description">Run your own messaging server with a small memory footprint, built-in federation, and full message history.</p>
+    <figure class="resource-terminal">
+      <div class="resource-terminal-bar"><span>SOMS SERVER</span><span>Resource overview</span></div>
+      <div class="resource-terminal-body">
+        <dl class="resource-stats"><div class="resource-memory"><dt>Memory footprint</dt><dd>~160–200 <span>MB</span></dd></div><div><dt>Federation</dt><dd>Built in</dd></div><div><dt>Message history</dt><dd>Stored on server</dd></div><div><dt>External Redis / Kafka / RabbitMQ</dt><dd>Not required</dd></div></dl>
       </div>
-    </header>
-
-    <!-- Hero Section -->
-    <main>
-      <section class="hero container">
-        <h1>
-          <span class="gradient-text">Private Chat Servers with</span><br />
-          <span class="highlight-text">Email-Like Federation</span>
-        </h1>
-        <p class="hero-desc">
-          Self-hosted private chat with email-like federation, powered by the open <strong>SOMFP</strong> protocol.
-        </p>
-
-        <!-- Technical Preview Callout (Yellow Warning) -->
-        <div class="preview-warning" role="alert">
-          <div class="preview-warning-icon">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-            </svg>
-          </div>
-          <div class="preview-warning-content">
-            <p>
-              <strong>Early Alpha:</strong> SOMS (<code>v0.1.0-alpha.2</code>) is under active development — subject to breaking changes. Test environments only.
-            </p>
-          </div>
-        </div>
-
-        <div class="hero-actions">
-          <a href="https://hapood.github.io/simple-open-messaging-service/" class="btn btn-primary" target="_blank" rel="noopener">
-            Try Live Playground
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <a href="https://hapood.github.io/simple-open-messaging-service/#/deploy" class="btn btn-secondary" target="_blank" rel="noopener">
-            Configure &amp; Deploy (Generator)
-          </a>
-        </div>
-
-        <div class="hero-preview">
-          <img src="assets/social-preview.png" alt="SOMS Interface and Architecture Preview" />
-        </div>
-      </section>
-
-      <!-- Why SOMS / What Makes SOMS Different -->
-      <section id="why" class="features container">
-        <div class="section-header">
-          <span class="section-badge">Why SOMS</span>
-          <h2>What Makes SOMS Different</h2>
-          <p>
-            Unlike heavy enterprise suites or resource-hungry federated protocols, SOMS is engineered specifically for personal servers and NAS setups — featherlight, pull-based, and zero-broker.
-          </p>
-        </div>
-
-        <div class="grid-values">
-          <!-- 1. Federation -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Federation</span>
-                <h3>Cross-Domain Federation, Like Email</h3>
-              </div>
-            </div>
-            <p>
-              Like email: enter <strong>alice&#64;example.com</strong> to add friends across servers. Group chats work seamlessly with members spanning multiple independent domains.
-            </p>
-          </div>
-
-          <!-- 2. Resource vs History -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Footprint</span>
-                <h3>~200MB Server RAM with Full History Storage</h3>
-              </div>
-            </div>
-            <p>
-              No need to run external Redis, Kafka, or RabbitMQ clusters. A single clean database stack powers everything. The backend process stays around 160MB–200MB RAM, while fully storing and indexing all your chat history and media.
-            </p>
-          </div>
-
-          <!-- 3. Pull Sync vs Reliability -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="1 4 1 10 7 10"></polyline>
-                  <polyline points="23 20 23 14 17 14"></polyline>
-                  <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Reliability</span>
-                <h3>Durable Pull Sync for Intermittent Servers</h3>
-              </div>
-            </div>
-            <p>
-              Built specifically for home servers and personal setups. If your server reboots, undergoes maintenance, or loses broadband temporarily, it automatically pulls and catches up on all missed messages as soon as it reconnects.
-            </p>
-          </div>
-
-          <!-- 4. Security & HTTPS -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Security</span>
-                <h3>Standard HTTPS Server-to-Server Transport</h3>
-              </div>
-            </div>
-            <p>
-              Server-to-server (S2S) requests travel exclusively over standard TLS/HTTPS encrypted channels. Paired with cryptographic signatures and automatic certificates, intermediate networks cannot eavesdrop or tamper with your data.
-            </p>
-          </div>
-
-          <!-- 5. Client Size vs Modern Features -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Native Clients</span>
-                <h3>Lean Native Clients (~34MB) with Calls &amp; Push</h3>
-              </div>
-            </div>
-            <p>
-              No bloated browser-wrapper shells. Lean native client packages (Android release package is only ~34MB) that launch instantly, complete with 1:1 voice &amp; video calling, multi-user groups, and background push notifications on Android.
-            </p>
-          </div>
-
-          <!-- 6. Rich Messaging Experience -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Rich Messaging</span>
-                <h3>Rich Content Formats</h3>
-              </div>
-            </div>
-            <p>
-              Supports images, streaming video, voice audio, raw file transfers with progress indicators, quoted message replies, @mentions, rich link previews, and customizable avatars.
-            </p>
-          </div>
-
-          <!-- 7. Ecosystem & Platforms -->
-          <div class="card-value">
-            <div class="card-header-row">
-              <div class="card-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                  <line x1="8" y1="21" x2="16" y2="21"></line>
-                  <line x1="12" y1="17" x2="12" y2="21"></line>
-                </svg>
-              </div>
-              <div class="card-header-titles">
-                <span class="card-tag">Ecosystem</span>
-                <h3>Web, Desktop &amp; Android (iOS Deferred)</h3>
-              </div>
-            </div>
-            <p>
-              Enjoy a fast and unified experience on Web / PWA, Android, Linux, Windows, and macOS (iOS support is deferred). Read and unread states synchronize automatically across all your active devices.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <div class="container footer-inner">
-        <div>
-          <strong>SOMS.im</strong> — Simple Open Messaging Service &copy; 2026. Released under the MIT License.
-        </div>
-        <div class="footer-links">
-          <a href="https://github.com/hapood/simple-open-messaging-service" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://hapood.github.io/simple-open-messaging-service/" target="_blank" rel="noopener">Playground</a>
-          <a href="https://github.com/hapood/simple-open-messaging-service/blob/main/docs/deployment/deployment.md" target="_blank" rel="noopener">Docs</a>
-        </div>
-      </div>
-    </footer>
-  </body>
-</html>
+      <figcaption>Memory usage varies with workload.</figcaption>
+    </figure>
+  </article>
+</section>
+</main><footer><a class="brand-group" href="/"><img src="/assets/logo.svg" alt="" width="26" height="26">SOMS.im</a><span>Simple Open Messaging Service · Open by design.</span></footer></body></html>
