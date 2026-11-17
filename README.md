@@ -18,7 +18,7 @@ node --check assets/detail.js
 
 The four `/how-it-works/` pages each contain a single SVG and static technical
 explanations. JavaScript enhances the diagram; the text remains available without
-it. `/somfp/` is a legacy HTML redirect, not a server-level 301.
+it.
 
 When publishing changes, update the asset version query strings together if the
 scripts and SVG structure change. Set sitemap `lastmod` to the actual content
