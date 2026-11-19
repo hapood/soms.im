@@ -1,10 +1,5 @@
-.tech-nav { display:flex; align-items:center; gap:28px; }
-.tech-nav a { text-decoration:none; color:#8499ac; font-size:12px; padding:14px 0; border-bottom:1px solid transparent; white-space:nowrap; }
-.tech-nav a[aria-current="page"] { color:#c6ede2; border-color:#a4d9ce; }
-.tech-nav a:hover { color:#fff; }
 .detail-hero { padding:44px 24px 28px; }
 .detail-explainer .slide-badge-title { display:none; }
-@media(max-width:640px) { body[data-page="protocol"] .fixed-nav { height:auto; flex-direction:column; align-items:flex-start; gap:4px; padding:12px 20px 0; } .tech-nav { width:100%; overflow-x:auto; gap:24px; } .tech-nav a { font-size:11px; padding:10px 0; } }
 .detail-hero .back-link { margin-bottom:24px; }
 .detail-hero .hero-title { font-size:54px; letter-spacing:-2px; }
 .detail-hero .hero-description { font-size:15px; }

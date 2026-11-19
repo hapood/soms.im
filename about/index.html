@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About SOMS — Vision, Core Philosophy &amp; Roadmap</title>
+  <meta name="description" content="Discover the vision behind SOMS: email-like simplicity, brokerless featherweight hosting, true data ownership with instant search, and a foundation for lightweight AI agents.">
+  <link rel="canonical" href="https://soms.im/about/">
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <meta name="theme-color" content="#0a0d14">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://soms.im/about/">
+  <meta property="og:site_name" content="SOMS">
+  <meta property="og:title" content="About SOMS — Vision, Core Philosophy &amp; Roadmap">
+  <meta property="og:description" content="Discover the vision behind SOMS: email-like simplicity, brokerless featherweight hosting, true data ownership with instant search, and a foundation for lightweight AI agents.">
+  <meta property="og:image" content="https://soms.im/assets/social-preview.png">
+  <meta property="og:image:alt" content="SOMS architecture, philosophy and roadmap">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About SOMS — Vision, Core Philosophy &amp; Roadmap">
+  <meta name="twitter:description" content="Discover the vision behind SOMS: email-like simplicity, brokerless featherweight hosting, true data ownership with instant search, and a foundation for lightweight AI agents.">
+  <meta name="twitter:image" content="https://soms.im/assets/social-preview.png">
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site.css?v=seo-cleanup-2">
+  <script src="/assets/site.js?v=seo-cleanup-2" defer></script>
+
+  <!-- Structured Data: AboutPage, BreadcrumbList, FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://soms.im/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About",
+            "item": "https://soms.im/about/"
+          }
+        ]
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "https://soms.im/about/#webpage",
+        "url": "https://soms.im/about/",
+        "name": "About SOMS — Vision, Core Philosophy & Roadmap",
+        "description": "Discover the vision behind SOMS: email-like simplicity, brokerless featherweight hosting, true data ownership with instant search, and a foundation for lightweight AI agents.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://soms.im/#website",
+          "url": "https://soms.im/",
+          "name": "SOMS"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://soms.im/about/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why does SOMS store messages cleanly on the server instead of requiring federation E2EE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Traditional federated end-to-end encryption often locks history into fragile key-gossip states, causes unrecoverable message loss during device desync, breaks server-side full-text search, and drains battery on mobile. By enforcing strong HTTPS transport security with Ed25519 request signatures between servers, SOMS ensures server-to-server traffic is authenticated while keeping message data structured in your own PostgreSQL instance—unlocking instant server-side search, painless multi-device sync, and reliable backups."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does SOMS survive network interruptions on home broadband or NAS reboots?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SOMS implements Durable Pull Sync. Nodes track remote message cursors and sync feeds. When a home server goes offline, remote peers queue updates safely. Upon reconnection, the server catches up sequentially without dropping messages or creating CPU storms."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How will lightweight AI agents integrate with SOMS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because message formats are structured and queryable within your private node, future SOMS releases will offer native bot and webhook bridges. Users can securely attach AI models, notification relays, or custom automation pipelines to private or federated chat rooms."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body data-page="about">
+  <nav class="fixed-nav" aria-label="Main navigation">
+    <a href="/" class="brand-group" aria-label="SOMS home">
+      <img src="/assets/logo.svg" width="38" height="38" alt="SOMS logo">
+      <span>SOMS<span class="brand-domain">.im</span></span>
+    </a>
+    <div class="tech-nav" aria-label="Main navigation links">
+      <a href="/about/" class="nav-link-main" aria-current="page">About</a>
+      <div class="nav-dropdown">
+        <a href="/how-it-works/messaging/" class="nav-link-main nav-dropdown-trigger" aria-haspopup="true">
+          <span>How it works</span>
+          <span class="dropdown-arrow" aria-hidden="true"></span>
+        </a>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="/how-it-works/messaging/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Direct Messaging</div>
+            <div class="dropdown-item-desc">Peer resolution &amp; direct delivery</div>
+          </a>
+          <a href="/how-it-works/groups/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Group Federation</div>
+            <div class="dropdown-item-desc">Decentralized rosters &amp; fanout</div>
+          </a>
+          <a href="/how-it-works/sync/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Push &amp; Pull Sync</div>
+            <div class="dropdown-item-desc">Zero-loss catch-up for offline nodes</div>
+          </a>
+          <a href="/how-it-works/security/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">S2S Security</div>
+            <div class="dropdown-item-desc">HTTPS transport &amp; Ed25519 signatures</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-wrapper">
+    <div class="about-wrapper">
+      <header class="about-hero">
+        <div class="about-badge">Vision &amp; Architecture</div>
+        <h1>Rethinking messaging for the self-hosted era.</h1>
+        <p>Email-like cross-domain simplicity, featherweight resource footprint, full ownership of your chat assets, and a foundation for lightweight AI agents.</p>
+      </header>
+
+      <!-- Three Pillars -->
+      <section class="about-block" aria-labelledby="heading-pillars">
+        <div class="about-block-header">
+          <h2 id="heading-pillars">Core Philosophy</h2>
+          <p>Designed from the ground up for personal servers, homelabs, and true sovereignty.</p>
+        </div>
+        <div class="pillars-grid">
+          <article class="pillar-card">
+            <div class="pillar-icon">🌐</div>
+            <h3>Federation as Simple as Email</h3>
+            <p>Just enter <code>alice@example.com</code> to connect with friends or join multi-server group chats across independent domains. No central directory, no shared database. Server traffic runs over standard HTTPS with Ed25519 request signatures for transparent, debuggable federation.</p>
+          </article>
+
+          <article class="pillar-card">
+            <div class="pillar-icon">⚡</div>
+            <h3>Featherweight Footprint (~160–200MB)</h3>
+            <p>Engineered to run as a single clean stack (Fastify + Drizzle ORM + PostgreSQL) with zero external message brokers (no Redis, Kafka, or RabbitMQ). Durable pull sync automatically catches up on all missed messages when a residential server reboots or reconnects.</p>
+          </article>
+
+          <article class="pillar-card">
+            <div class="pillar-icon">🗄️</div>
+            <h3>Own Your History &amp; Assets</h3>
+            <p>Your conversations and files are long-term personal digital assets. Storing history cleanly in standard PostgreSQL gives you instant server-side full-text search, effortless multi-device sync, and reliable backups without complex key-recovery rituals.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Design Trade-off -->
+      <section class="about-block" aria-labelledby="heading-tradeoff">
+        <div class="about-block-header">
+          <h2 id="heading-tradeoff">The Architectural Trade-Off</h2>
+          <p>Why SOMS avoids heavy federation-layer E2EE in favor of self-hosted data ownership.</p>
+        </div>
+        <div class="tradeoff-card">
+          <h3>S2S Transport Security vs. Fragile Key-Gossip Blobs</h3>
+          <p>Many modern decentralized protocols enforce end-to-end encryption across all federated participants. While well-intentioned, this frequently turns personal chat history into undecryptable binary blobs whenever keys desync, prevents fast server-side searching, drains mobile device batteries, and makes automated personal backups exceedingly difficult.</p>
+          <p>SOMS takes a pragmatic, email-inspired stance: <span class="tradeoff-highlight">Server-to-server traffic is strictly authenticated and encrypted via TLS and Ed25519 signatures</span>, but message storage remains clean, relational, and directly queryable on <em>your</em> personal node. You maintain absolute physical and cryptographic ownership of your server disk without sacrificing usability.</p>
+        </div>
+      </section>
+
+      <!-- Roadmap -->
+      <section class="about-block" aria-labelledby="heading-roadmap">
+        <div class="about-block-header">
+          <h2 id="heading-roadmap">Project Roadmap</h2>
+          <p>Current progress and upcoming milestones for the SOMS ecosystem.</p>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-card">
+            <div class="roadmap-header">
+              <h3>Core Protocol &amp; Durable Sync</h3>
+              <span class="status-pill status-done">Delivered</span>
+            </div>
+            <p>SOMFP protocol specification draft, Ed25519 request signing, cursor-based pull sync for reliable packet recovery, and tombstone propagation for clean cross-server revocations.</p>
+          </article>
+
+          <article class="roadmap-card">
+            <div class="roadmap-header">
+              <h3>Multi-Platform Native Clients</h3>
+              <span class="status-pill status-done">Delivered</span>
+            </div>
+            <p>Lean Web/PWA, Desktop (Rust/Tauri ~34MB), and Android Alpha clients. Includes WebRTC 1:1 voice/video calling, background push notifications, and unified multi-device read states.</p>
+          </article>
+
+          <article class="roadmap-card">
+            <div class="roadmap-header">
+              <h3>UX Polish &amp; One-Click NAS Stacks</h3>
+              <span class="status-pill status-wip">In Progress</span>
+            </div>
+            <p>Refining client responsiveness and expanding our interactive Docker Compose generator with plug-and-play templates for Synology, QNAP, TrueNAS, and residential homelab environments.</p>
+          </article>
+
+          <article class="roadmap-card">
+            <div class="roadmap-header">
+              <h3>Lightweight AI Agents &amp; Workflows</h3>
+              <span class="status-pill status-planned">Planned</span>
+            </div>
+            <p>Native webhook bridges and agent adapters. Because message records are structured and self-hosted, SOMS will serve as a dynamic workspace where humans and lightweight AI agents collaborate seamlessly.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Architecture Explainer Portals -->
+      <section class="about-block" aria-labelledby="heading-explore">
+        <div class="about-block-header">
+          <h2 id="heading-explore">Explore the Protocol Under the Hood</h2>
+          <p>Dive into interactive animated diagrams illustrating SOMFP mechanisms.</p>
+        </div>
+        <div class="portal-grid">
+          <a class="portal-card" href="/how-it-works/messaging/">
+            <div>
+              <h4>Direct Messaging</h4>
+              <p>Peer resolution, inbox routing, and cross-domain delivery.</p>
+            </div>
+            <span>View diagram &rarr;</span>
+          </a>
+          <a class="portal-card" href="/how-it-works/groups/">
+            <div>
+              <h4>Group Federation</h4>
+              <p>Roster management and multi-server message fanout.</p>
+            </div>
+            <span>View diagram &rarr;</span>
+          </a>
+          <a class="portal-card" href="/how-it-works/sync/">
+            <div>
+              <h4>Push &amp; Pull Sync</h4>
+              <p>Zero-loss message recovery for residential connections.</p>
+            </div>
+            <span>View diagram &rarr;</span>
+          </a>
+          <a class="portal-card" href="/how-it-works/security/">
+            <div>
+              <h4>S2S Security</h4>
+              <p>Ed25519 HTTP signatures and cryptographic handshakes.</p>
+            </div>
+            <span>View diagram &rarr;</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <a class="brand-group" href="/" aria-label="SOMS Home">
+          <img src="/assets/logo.svg" alt="SOMS Logo" width="28" height="28">
+          <span>SOMS<span class="brand-domain">.im</span></span>
+        </a>
+        <p class="footer-tagline">Simple Open Messaging Service.<br>Self-hosted, native federation, low memory footprint. Open by design.</p>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-heading">Architecture &amp; Vision</h3>
+        <ul class="footer-nav-list">
+          <li><a href="/about/">About &amp; Vision</a></li>
+          <li><a href="/how-it-works/messaging/">Direct Messaging</a></li>
+          <li><a href="/how-it-works/groups/">Group Federation</a></li>
+          <li><a href="/how-it-works/sync/">Push &amp; Sync</a></li>
+          <li><a href="/how-it-works/security/">S2S Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-heading">Resources &amp; Code</h3>
+        <ul class="footer-nav-list">
+          <li><a href="https://github.com/hapood/simple-open-messaging-service" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          <li><a href="https://hapood.github.io/simple-open-messaging-service/" target="_blank" rel="noopener noreferrer">Web Playground</a></li>
+          <li><a href="https://hapood.github.io/simple-open-messaging-service/#/deploy" target="_blank" rel="noopener noreferrer">Deploy Server Guide</a></li>
+          <li><a href="/sitemap.xml">Sitemap.xml</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© SOMS Project. Open by design. Free and open source software.</span>
+      <span>Federated Instant Messaging Protocol</span>
+    </div>
+  </footer>
+</body>
+</html>

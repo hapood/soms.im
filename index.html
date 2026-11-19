@@ -111,11 +111,32 @@
       <img src="/assets/logo.svg" width="38" height="38" alt="SOMS logo">
       <span>SOMS<span class="brand-domain">.im</span></span>
     </a>
-    <div class="tech-nav" aria-label="Technical pages">
-      <a href="/how-it-works/messaging/">Messaging</a>
-      <a href="/how-it-works/groups/">Groups</a>
-      <a href="/how-it-works/sync/">Push &amp; pull</a>
-      <a href="/how-it-works/security/">S2S security</a>
+    <div class="tech-nav" aria-label="Main navigation links">
+      <a href="/about/" class="nav-link-main">About</a>
+      <div class="nav-dropdown">
+        <a href="/how-it-works/messaging/" class="nav-link-main nav-dropdown-trigger" aria-haspopup="true">
+          <span>How it works</span>
+          <span class="dropdown-arrow" aria-hidden="true"></span>
+        </a>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="/how-it-works/messaging/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Direct Messaging</div>
+            <div class="dropdown-item-desc">Peer resolution &amp; direct delivery</div>
+          </a>
+          <a href="/how-it-works/groups/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Group Federation</div>
+            <div class="dropdown-item-desc">Decentralized rosters &amp; fanout</div>
+          </a>
+          <a href="/how-it-works/sync/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">Push &amp; Pull Sync</div>
+            <div class="dropdown-item-desc">Zero-loss catch-up for offline nodes</div>
+          </a>
+          <a href="/how-it-works/security/" class="dropdown-item" role="menuitem">
+            <div class="dropdown-item-title">S2S Security</div>
+            <div class="dropdown-item-desc">HTTPS transport &amp; Ed25519 signatures</div>
+          </a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -123,7 +144,7 @@
     <header class="hero-section hero-minimal">
       <p class="hero-brand-name">Simple Open Messaging Service</p>
       <h1 class="hero-title">SOMS — Instant messaging.<br><span class="gradient-text">Federated by nature.</span></h1>
-      <p class="hero-description">Email-like addresses. Independent servers. Chat across domains with SOMFP, our open messaging protocol.</p>
+      <p class="hero-description">Email-like simplicity. Zero external brokers. Full ownership of your chat assets, and a clean foundation for lightweight AI agents.</p>
       <div class="hero-actions">
         <a class="github-primary" href="https://github.com/hapood/simple-open-messaging-service" target="_blank" rel="noopener noreferrer">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.68.08-.68 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15a10.8 10.8 0 0 1 5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.28-5.15 5.56.4.35.76 1.03.76 2.08v3.09c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>
@@ -347,6 +368,9 @@
           <p>Follow the deployment guide for the current installation steps and database configuration. Plan for HTTPS, persistent storage, and backups of your database, uploaded files, and configuration. Resource needs depend on your workload; test with your expected usage before choosing server capacity.</p>
         </article>
       </div>
+      <div style="text-align: center; margin-top: 36px;">
+        <a class="home-card-button" href="/about/">Learn more about our Vision, Architecture &amp; Roadmap <span aria-hidden="true">&rarr;</span></a>
+      </div>
     </section>
   </main>
 
@@ -360,8 +384,9 @@
         <p class="footer-tagline">Simple Open Messaging Service.<br>Self-hosted, native federation, low memory footprint. Open by design.</p>
       </div>
       <div class="footer-col">
-        <h3 class="footer-heading">How SOMS Works</h3>
+        <h3 class="footer-heading">Architecture &amp; Vision</h3>
         <ul class="footer-nav-list">
+          <li><a href="/about/">About &amp; Vision</a></li>
           <li><a href="/how-it-works/messaging/">Direct Messaging</a></li>
           <li><a href="/how-it-works/groups/">Group Federation</a></li>
           <li><a href="/how-it-works/sync/">Push &amp; Sync</a></li>

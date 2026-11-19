@@ -623,5 +623,30 @@
     // Initialize: Start ONLY Slide 0
     window.addEventListener('DOMContentLoaded', () => {
       if (document.body.dataset.page !== 'protocol') switchSlide(0);
+
+      // Mobile / Touch navigation dropdown toggle
+      document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+        if (!trigger) return;
+        trigger.addEventListener('click', (e) => {
+          if (window.matchMedia('(max-width: 640px)').matches || ('ontouchstart' in window)) {
+            if (!dropdown.classList.contains('is-open')) {
+              e.preventDefault();
+              dropdown.classList.add('is-open');
+              trigger.setAttribute('aria-expanded', 'true');
+            }
+          }
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+          document.querySelectorAll('.nav-dropdown.is-open').forEach(dropdown => {
+            dropdown.classList.remove('is-open');
+            const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
     });
   

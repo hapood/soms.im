@@ -26,7 +26,7 @@ class Page(HTMLParser):
         for key in ('href', 'src'):
             if key in a: self.links.append(a[key])
 
-paths = [ROOT / 'index.html', *sorted((ROOT / 'how-it-works').glob('*/index.html'))]
+paths = [ROOT / 'index.html', ROOT / 'about' / 'index.html', *sorted((ROOT / 'how-it-works').glob('*/index.html'))]
 titles, descriptions = set(), set()
 for path in paths:
     text = path.read_text()
@@ -51,7 +51,7 @@ for path in paths:
         target = ROOT / parsed.path.lstrip('/') if parsed.path.startswith('/') else path.parent / parsed.path
         if target.is_dir(): target /= 'index.html'
         assert target.exists(), f'{path}: missing local resource {link}'
-    if path.parent != ROOT:
+    if 'how-it-works' in path.parts:
         assert page.svg == 1, f'{path}: unused SVGs'
         notes = re.search(r'<section id="chapter-notes".*?</section>', text, re.S).group(0)
         assert notes.count('<article>') == 3, f'{path}: explanation must be static HTML'
